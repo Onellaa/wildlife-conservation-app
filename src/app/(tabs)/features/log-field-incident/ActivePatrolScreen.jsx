@@ -2,7 +2,7 @@
 import { useCallback, useEffect } from "react";
 import { View, ScrollView, TouchableOpacity, Alert } from "react-native";
 import { Text } from "../../../../components/NunitoText";
-import { useFocusEffect, useRouter } from "expo-router";
+import { Redirect, useFocusEffect, useRouter } from "expo-router";
 import { LogOut } from "lucide-react-native";
 
 import PatrolHeader from "../../../../components/log-field-incident/PatrolHeader";
@@ -15,13 +15,17 @@ import { activePatrolStyles as styles } from "../../../../styles/log-field-incid
 import { COLORS } from "../../../../styles/log-field-incident/activePatrolStyles";
 import { useActivePatrolScreen } from "../../../../hooks/log-field-incident/useActivePatrolScreen";
 import { usePatrol } from "../../../../context/log-field-incident/PatrolContext";
+import { useAuth } from "../../../../context/AuthContext";
 import { extractParkLocation } from "../../../../utils/geojson";
 
 export default function ActivePatrolScreen() {
   const router = useRouter();
+  const { isRanger } = useAuth();
   const { activePatrol, incidents, syncStatus, elapsed, loading } =
     useActivePatrolScreen();
   const { endPatrol, refreshPatrolIncidents } = usePatrol();
+
+  if (!isRanger) return <Redirect href="/(tabs)" />;
 
   useFocusEffect(
     useCallback(() => {

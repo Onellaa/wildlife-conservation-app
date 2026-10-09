@@ -8,16 +8,18 @@ import {
   ActivityIndicator,
   RefreshControl,
 } from "react-native";
-import { useRouter } from "expo-router";
+import { Redirect, useRouter } from "expo-router";
 import { ArrowLeft, UploadCloud } from "lucide-react-native";
 
 import { getAllIncidents } from "../../../../services/log-field-incident/incidentService";
 import { syncPending } from "../../../../services/log-field-incident/syncService";
 import { useNetworkStatus } from "../../../../hooks/log-field-incident/useNetworkStatus";
+import { useAuth } from "../../../../context/AuthContext";
 import { COLORS } from "../../../../styles/log-field-incident/activePatrolStyles";
 
 export default function PendingSyncScreen() {
   const router = useRouter();
+  const { isRanger } = useAuth();
   const { isOnline } = useNetworkStatus();
   const [incidents, setIncidents] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -34,8 +36,8 @@ export default function PendingSyncScreen() {
   }, []);
 
   useEffect(() => {
-    load();
-  }, [load]);
+    if (isRanger) load();
+  }, [isRanger, load]);
 
   const handleSync = async () => {
     setSyncing(true);
@@ -46,6 +48,8 @@ export default function PendingSyncScreen() {
       setSyncing(false);
     }
   };
+
+  if (!isRanger) return <Redirect href="/(tabs)" />;
 
   return (
     <View style={{ flex: 1, backgroundColor: COLORS.background }}>

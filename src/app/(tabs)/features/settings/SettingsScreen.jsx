@@ -14,9 +14,6 @@ export default function SettingsScreen() {
         <Text style={styles.label}>Signed in as</Text>
         <Text style={styles.value}>{profile?.full_name || "Unknown"}</Text>
 
-        <Text style={styles.label}>Role</Text>
-        <Text style={styles.value}>{profile?.role || "Unknown"}</Text>
-
         <Text style={styles.label}>Assigned Park</Text>
         <Text style={styles.value}>
           {profile?.parks?.name || profile?.assigned_park_id || "Not assigned"}

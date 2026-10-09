@@ -16,7 +16,7 @@ import {
   ActivityIndicator,
   SafeAreaView,
 } from "react-native";
-import { getDashboardStats } from "../services/dashboardService";
+import { getDashboardStats } from "../../services/dashboardService";
 import { authService } from "../../services/authService";
 
 import { Ionicons } from "@expo/vector-icons";
@@ -27,7 +27,7 @@ require("../../../assets/home/log-incident.jpg");
 require("../../../assets/home/camera-trap.jpg");
 require("../../../assets/home/community-report.jpg");
 
-import { getActiveAlerts } from "../services/alertService";
+import { getActiveAlerts } from "../../services/alertService";
 
 export default function HomeScreen() {
   const router = useRouter();
@@ -191,7 +191,7 @@ export default function HomeScreen() {
             activeOpacity={0.85}
             onPress={() =>
               router.push(
-                "/(tabs)/features/log-field-incident/StartPatrolScreen",
+                "/(tabs)/features/log-field-incident/ActivePatrolScreen",
               )
             }
           >

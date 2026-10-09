@@ -1,5 +1,5 @@
 import { supabase } from "../../../lib/supabase";
-import { createCommunityConflictReport } from "./reportService";
+import { createCommunityConflictReport } from "../reportService";
 
 jest.mock("../../../lib/supabase", () => ({
   supabase: {
@@ -51,9 +51,7 @@ describe("createCommunityConflictReport", () => {
     });
 
     expect(result).toEqual(report);
-    expect(supabase.from).toHaveBeenCalledWith(
-      "community_conflict_reports"
-    );
+    expect(supabase.from).toHaveBeenCalledWith("community_conflict_reports");
     expect(mockInsert).toHaveBeenCalledWith([
       expect.objectContaining({
         user_id: "user-123",
@@ -106,7 +104,7 @@ describe("createCommunityConflictReport", () => {
         userId: "user-123",
         incidentType: "Elephant Sighting",
         description: "Elephant near the village.",
-      })
+      }),
     ).rejects.toThrow("Database error");
 
     expect(consoleSpy).toHaveBeenCalled();

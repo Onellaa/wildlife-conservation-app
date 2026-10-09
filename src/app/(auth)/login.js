@@ -40,13 +40,13 @@ export default function LoginScreen() {
       // 3. Route based on role
       switch (profile.role) {
         case "ranger":
-          // Rangers should land on the main home dashboard after login.
-          router.replace("/(tabs)/index");
+          // Rangers land on Home after signing in.
+          router.replace("/(tabs)");
           break;
 
         case "park_manager":
           // Keep your existing park manager route
-          router.replace("/(tabs)/index");
+          router.replace("/(tabs)");
           break;
 
         case "liaison_officer":
@@ -66,7 +66,7 @@ export default function LoginScreen() {
 
         default:
           // Unknown role → Home
-          router.replace("/(tabs)/index");
+          router.replace("/(tabs)");
           break;
       }
     } catch (error) {
@@ -94,7 +94,7 @@ export default function LoginScreen() {
 
           <Text style={styles.title}>Wildlife Conservation</Text>
 
-          <Text style={styles.subtitle}>Ranger Sign In</Text>
+          <Text style={styles.subtitle}>Sign In</Text>
         </View>
 
         <View style={styles.form}>

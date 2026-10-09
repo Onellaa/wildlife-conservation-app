@@ -19,7 +19,7 @@ import {
   getAlertById,
   getAlertResponses,
   resolveAlert,
-} from "../services/alertService";
+} from "../../../services/alertService";
 
 export default function ResolutionScreen() {
   const router = useRouter();

@@ -1,7 +1,7 @@
 // src/app/(tabs)/features/log-field-incident/LogIncidentFormScreen.jsx
 import { useCallback, useMemo, useState } from "react";
 import { KeyboardAvoidingView, Platform, Alert } from "react-native";
-import { useFocusEffect, useRouter } from "expo-router";
+import { Redirect, useFocusEffect, useRouter } from "expo-router";
 import * as Crypto from "expo-crypto";
 
 import LogIncidentHeader from "../../../../components/log-field-incident/LogIncidentHeader";
@@ -32,7 +32,7 @@ const createInitialFormData = () => ({
 
 export default function LogIncidentFormScreen() {
   const router = useRouter();
-  const { user, profile } = useAuth();
+  const { user, profile, isRanger } = useAuth();
   const { activePatrol, refreshPatrolIncidents } = usePatrol();
   const { isOnline } = useNetworkStatus();
 
@@ -199,6 +199,8 @@ export default function LogIncidentFormScreen() {
 
   const headerStep = showReview ? 4 : step;
   const headerTitle = showReview ? "Review Incident" : "Log Incident";
+
+  if (!isRanger) return <Redirect href="/(tabs)" />;
 
   return (
     <KeyboardAvoidingView

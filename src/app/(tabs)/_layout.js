@@ -1,8 +1,8 @@
 import React from "react";
 import { Tabs, Redirect } from "expo-router";
 import { ActivityIndicator, View } from "react-native";
-import { ClipboardList, House, MessageSquareText } from "lucide-react-native";
-import { Ionicons } from "@expo/vector-icons";
+import { House, Settings } from "lucide-react-native";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 import { useAuth } from "../../context/AuthContext";
 import { useAutoSync } from "../../hooks/log-field-incident/useAutoSync";
@@ -19,6 +19,7 @@ const getTabOptions = (isRanger, title, Icon) =>
 
 export default function TabLayout() {
   const { session, loading, isRanger } = useAuth();
+  const insets = useSafeAreaInsets();
 
   // Automatically sync pending incidents
   useAutoSync();
@@ -47,59 +48,83 @@ export default function TabLayout() {
         headerShown: false,
         tabBarActiveTintColor: "#176B4D",
         tabBarInactiveTintColor: "#7A8580",
-        tabBarStyle: {
-          height: 75,
-          paddingTop: 8,
-          paddingBottom: 10,
-          backgroundColor: "#FFFFFF",
-          borderTopWidth: 0,
-          shadowColor: "#000",
-          shadowOffset: { width: 0, height: -2 },
-          shadowOpacity: 0.08,
-          shadowRadius: 6,
-          elevation: 8,
-        },
+        tabBarStyle: isRanger
+          ? {
+              height: 75 + insets.bottom,
+              paddingTop: 8,
+              paddingBottom: 10 + insets.bottom,
+              backgroundColor: "#FFFFFF",
+              borderTopWidth: 0,
+              shadowColor: "#000",
+              shadowOffset: { width: 0, height: -2 },
+              shadowOpacity: 0.08,
+              shadowRadius: 6,
+              elevation: 8,
+            }
+          : { display: "none" },
         tabBarLabelStyle: {
           fontSize: 11,
           fontWeight: "600",
         },
       }}
     >
-      {/* MAIN BOTTOM TABS */}
-
+      {/* Only Home and Settings are visible Ranger tabs. */}
       <Tabs.Screen
         name="index"
-        options={getTabOptions(isRanger, "Dashboard", House)}
+        options={getTabOptions(isRanger, "Home", House)}
+      />
+      <Tabs.Screen
+        name="features/settings/SettingsScreen"
+        options={getTabOptions(isRanger, "Settings", Settings)}
       />
 
+      {/* Other route files remain navigable but are not tab destinations. */}
       <Tabs.Screen
-        name="log-field-incident"
-        options={{
-          title: "Log Incident",
-          tabBarIcon: ({ color, size }) => (
-            <ClipboardList color={color} size={size} />
-          ),
-        }}
+        name="features/log-field-incident/ActivePatrolScreen"
+        options={{ href: null }}
       />
-
       <Tabs.Screen
-        name="community-report"
-        options={{
-          title: "Community Reports",
-          tabBarIcon: ({ color, size }) => (
-            <MessageSquareText color={color} size={size} strokeWidth={2} />
-          ),
-        }}
+        name="features/log-field-incident/PendingSyncScreen"
+        options={{ href: null }}
       />
-
+      <Tabs.Screen name="community-report" options={{ href: null }} />
+      <Tabs.Screen name="camera-trap" options={{ href: null }} />
+      <Tabs.Screen name="alerts/index" options={{ href: null }} />
+      <Tabs.Screen name="alerts/[id]" options={{ href: null }} />
+      <Tabs.Screen name="alerts/action" options={{ href: null }} />
+      <Tabs.Screen name="alerts/response" options={{ href: null }} />
+      <Tabs.Screen name="alerts/resolution" options={{ href: null }} />
+      <Tabs.Screen name="feature4" options={{ href: null }} />
+      <Tabs.Screen name="features/home/dispatcher" options={{ href: null }} />
+      <Tabs.Screen name="features/home/DefaultHome" options={{ href: null }} />
+      <Tabs.Screen name="features/officer/dashboard" options={{ href: null }} />
       <Tabs.Screen
-        name="camera-trap"
-        options={{
-          title: "Camera Traps",
-          tabBarIcon: ({ color, size }) => (
-            <Ionicons name="camera-outline" size={size} color={color} />
-          ),
-        }}
+        name="features/officer/report-details"
+        options={{ href: null }}
+      />
+      <Tabs.Screen
+        name="features/community-report/index"
+        options={{ href: null }}
+      />
+      <Tabs.Screen
+        name="features/community-report/report-form"
+        options={{ href: null }}
+      />
+      <Tabs.Screen
+        name="features/community-report/my-reports"
+        options={{ href: null }}
+      />
+      <Tabs.Screen
+        name="features/log-field-incident/StartPatrolScreen"
+        options={{ href: null }}
+      />
+      <Tabs.Screen
+        name="features/log-field-incident/LogIncidentFormScreen"
+        options={{ href: null }}
+      />
+      <Tabs.Screen
+        name="features/log-field-incident/LogIncidentSuccessScreen"
+        options={{ href: null }}
       />
     </Tabs>
   );

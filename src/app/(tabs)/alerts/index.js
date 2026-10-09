@@ -14,7 +14,7 @@ import { useFocusEffect, useRouter } from "expo-router";
 
 import { Ionicons } from "@expo/vector-icons";
 
-import { getActiveAlerts } from "../services/alertService";
+import { getActiveAlerts } from "../../../services/alertService";
 
 export default function AlertScreen() {
   const router = useRouter();

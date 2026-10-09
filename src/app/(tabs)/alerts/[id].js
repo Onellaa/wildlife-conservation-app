@@ -18,7 +18,7 @@ import { Ionicons } from "@expo/vector-icons";
 import {
   getAlertById,
   acknowledgeAlert as acknowledgeAlertService,
-} from "../services/alertService";
+} from "../../../services/alertService";
 
 export default function AlertDetailsScreen() {
   const { id } = useLocalSearchParams();
@@ -194,7 +194,7 @@ export default function AlertDetailsScreen() {
 
         <View style={styles.heroCard}>
           <Image
-            source={require("../../../assets/alerts/elephant-raja.jpg")}
+            source={require("../../../../assets/alerts/elephant-raja.jpg")}
             style={styles.heroImage}
             resizeMode="cover"
           />

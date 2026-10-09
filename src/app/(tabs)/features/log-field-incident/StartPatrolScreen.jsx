@@ -8,16 +8,18 @@ import {
   Alert,
 } from "react-native";
 import { Text } from "../../../../components/NunitoText";
-import { useRouter } from "expo-router";
+import { Redirect, useRouter } from "expo-router";
 import { useAuth } from "../../../../context/AuthContext";
 import { usePatrol } from "../../../../context/log-field-incident/PatrolContext";
 
 export default function StartPatrolScreen() {
-  const { profile } = useAuth();
+  const { profile, isRanger } = useAuth();
   const { startPatrol } = usePatrol();
   const router = useRouter();
 
   const [loading, setLoading] = useState(false);
+
+  if (!isRanger) return <Redirect href="/(tabs)" />;
 
   const handleStartPatrol = async () => {
     if (!profile?.assigned_park_id) {
@@ -31,7 +33,7 @@ export default function StartPatrolScreen() {
         parkId: profile.assigned_park_id,
         routeName: "Default Route",
       });
-      router.replace("/(tabs)");
+      router.replace("/(tabs)/features/log-field-incident/ActivePatrolScreen");
     } catch (err) {
       console.error("Start patrol failed:", err);
       Alert.alert("Failed to start patrol", err.message || "Please try again.");

@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from "react";
 
 import {
@@ -18,13 +17,13 @@ import NetInfo from "@react-native-community/netinfo";
 import { Feather } from "@expo/vector-icons";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
-import { createCommunityConflictReport } from "../../../services/reportService";
+import { createCommunityConflictReport } from "../../../../services/reportService";
 import { useAuth } from "../../../../context/AuthContext";
 
 import {
   saveReportOffline,
   startOfflineReportListener,
-} from "../../../services/offlineReportService";
+} from "../../../../services/offlineReportService";
 
 const ROUTES = {
   home: "/(tabs)/features/community-report",
@@ -57,11 +56,7 @@ export default function ReportForm() {
   const [submittedReport, setSubmittedReport] = useState(null);
   const [savedOffline, setSavedOffline] = useState(false);
 
-  const incidentTypes = [
-    "Elephant Sighting",
-    "Crop Raiding",
-    "Other",
-  ];
+  const incidentTypes = ["Elephant Sighting", "Crop Raiding", "Other"];
 
   // Listen for internet connection changes
   useEffect(() => {
@@ -92,13 +87,12 @@ export default function ReportForm() {
       setLocationLoading(true);
       setLocationDetected(false);
 
-      const { status } =
-        await Location.requestForegroundPermissionsAsync();
+      const { status } = await Location.requestForegroundPermissionsAsync();
 
       if (status !== "granted") {
         Alert.alert(
           "Location Permission Required",
-          "Please allow location access to automatically detect your current location. You can also enter the location manually."
+          "Please allow location access to automatically detect your current location. You can also enter the location manually.",
         );
         return;
       }
@@ -122,7 +116,7 @@ export default function ReportForm() {
 
       Alert.alert(
         "Location Unavailable",
-        "Unable to detect your current location. Please enter the location manually."
+        "Unable to detect your current location. Please enter the location manually.",
       );
     } finally {
       setLocationLoading(false);
@@ -140,16 +134,13 @@ export default function ReportForm() {
     if (!locationDetected && !manualLocation.trim()) {
       Alert.alert(
         "Required",
-        "Please use your current location or enter the location manually."
+        "Please use your current location or enter the location manually.",
       );
       return;
     }
 
     if (!user?.id) {
-      Alert.alert(
-        "Error",
-        "You must be logged in to submit a report."
-      );
+      Alert.alert("Error", "You must be logged in to submit a report.");
       return;
     }
 
@@ -172,9 +163,7 @@ export default function ReportForm() {
       if (!networkState.isConnected) {
         await saveReportOffline(reportData);
 
-        console.log(
-          "Report saved locally because the device is offline."
-        );
+        console.log("Report saved locally because the device is offline.");
 
         setSavedOffline(true);
         return;
@@ -190,8 +179,7 @@ export default function ReportForm() {
 
       Alert.alert(
         "Submission Failed",
-        error?.message ||
-          "Unable to submit your report. Please try again."
+        error?.message || "Unable to submit your report. Please try again.",
       );
     } finally {
       setLoading(false);
@@ -207,23 +195,19 @@ export default function ReportForm() {
             <Feather name="check" size={34} color="#B7791F" />
           </View>
 
-          <Text style={styles.successTitle}>
-            Report Saved Offline
-          </Text>
+          <Text style={styles.successTitle}>Report Saved Offline</Text>
 
           <Text style={styles.successMessage}>
-            There is currently no internet connection. Your report has
-            been safely saved on this device.
+            There is currently no internet connection. Your report has been
+            safely saved on this device.
           </Text>
 
           <View style={styles.offlineBox}>
-            <Text style={styles.offlineTitle}>
-              What happens next?
-            </Text>
+            <Text style={styles.offlineTitle}>What happens next?</Text>
 
             <Text style={styles.offlineText}>
-              The report will be automatically submitted to the system
-              when the internet connection is restored.
+              The report will be automatically submitted to the system when the
+              internet connection is restored.
             </Text>
           </View>
 
@@ -249,25 +233,20 @@ export default function ReportForm() {
             <Feather name="check" size={34} color="#218838" />
           </View>
 
-          <Text style={styles.successTitle}>
-            Report Submitted Successfully
-          </Text>
+          <Text style={styles.successTitle}>Report Submitted Successfully</Text>
 
           <Text style={styles.successMessage}>
-            Your wildlife conflict report has been successfully
-            submitted to the system.
+            Your wildlife conflict report has been successfully submitted to the
+            system.
           </Text>
 
           <View style={styles.reportIdBox}>
             <Text style={styles.reportIdLabel}>Report ID</Text>
-            <Text style={styles.reportId}>
-              {submittedReport.report_id}
-            </Text>
+            <Text style={styles.reportId}>{submittedReport.report_id}</Text>
           </View>
 
           <Text style={styles.successNote}>
-            You can view this report and its current status under My
-            Reports.
+            You can view this report and its current status under My Reports.
           </Text>
 
           <TouchableOpacity
@@ -286,12 +265,7 @@ export default function ReportForm() {
   return (
     <View style={styles.screen}>
       {/* Tab header */}
-      <View
-        style={[
-          styles.header,
-          { paddingTop: insets.top + 14 },
-        ]}
-      >
+      <View style={[styles.header, { paddingTop: insets.top + 14 }]}>
         <ScrollView
           horizontal
           showsHorizontalScrollIndicator={false}
@@ -303,13 +277,8 @@ export default function ReportForm() {
             return (
               <TouchableOpacity
                 key={tab.key}
-                style={[
-                  styles.tab,
-                  active && styles.tabActive,
-                ]}
-                onPress={() =>
-                  !active && router.replace(ROUTES[tab.key])
-                }
+                style={[styles.tab, active && styles.tabActive]}
+                onPress={() => !active && router.replace(ROUTES[tab.key])}
               >
                 <Feather
                   name={tab.icon}
@@ -317,12 +286,7 @@ export default function ReportForm() {
                   color={active ? "#FFFFFF" : "#5B6B63"}
                 />
 
-                <Text
-                  style={[
-                    styles.tabText,
-                    active && styles.tabTextActive,
-                  ]}
-                >
+                <Text style={[styles.tabText, active && styles.tabTextActive]}>
                   {tab.label}
                 </Text>
               </TouchableOpacity>
@@ -340,10 +304,7 @@ export default function ReportForm() {
             <Feather name="user" size={18} color="#235A47" />
           </View>
 
-          <TouchableOpacity
-            style={styles.logoutButton}
-            onPress={handleLogout}
-          >
+          <TouchableOpacity style={styles.logoutButton} onPress={handleLogout}>
             <Feather name="log-out" size={18} color="#FFFFFF" />
             <Text style={styles.logoutButtonText}>Logout</Text>
           </TouchableOpacity>
@@ -383,18 +344,12 @@ export default function ReportForm() {
             return (
               <TouchableOpacity
                 key={type}
-                style={[
-                  styles.typeButton,
-                  selected && styles.selectedType,
-                ]}
+                style={[styles.typeButton, selected && styles.selectedType]}
                 activeOpacity={0.8}
                 onPress={() => setIncidentType(type)}
               >
                 <Text
-                  style={[
-                    styles.typeText,
-                    selected && styles.selectedTypeText,
-                  ]}
+                  style={[styles.typeText, selected && styles.selectedTypeText]}
                 >
                   {type}
                 </Text>
@@ -446,25 +401,17 @@ export default function ReportForm() {
         {/* GPS result */}
         {locationDetected && (
           <View style={styles.gpsBox}>
-            <Text style={styles.gpsTitle}>
-              ✓ Location Detected
-            </Text>
+            <Text style={styles.gpsTitle}>✓ Location Detected</Text>
 
-            <Text style={styles.gpsText}>
-              Latitude: {latitude}
-            </Text>
+            <Text style={styles.gpsText}>Latitude: {latitude}</Text>
 
-            <Text style={styles.gpsText}>
-              Longitude: {longitude}
-            </Text>
+            <Text style={styles.gpsText}>Longitude: {longitude}</Text>
           </View>
         )}
 
         <View style={styles.orRow}>
           <View style={styles.orLine} />
-          <Text style={styles.orText}>
-            OR enter location manually
-          </Text>
+          <Text style={styles.orText}>OR enter location manually</Text>
           <View style={styles.orLine} />
         </View>
 
@@ -491,10 +438,7 @@ export default function ReportForm() {
 
         {/* Submit */}
         <TouchableOpacity
-          style={[
-            styles.submitButton,
-            loading && styles.disabledButton,
-          ]}
+          style={[styles.submitButton, loading && styles.disabledButton]}
           onPress={handleSubmit}
           disabled={loading}
         >

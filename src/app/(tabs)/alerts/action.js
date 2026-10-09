@@ -10,7 +10,10 @@ import {
   Alert,
   ActivityIndicator,
 } from "react-native";
-import { getAlertById, saveAlertResponse } from "../services/alertService";
+import {
+  getAlertById,
+  saveAlertResponse,
+} from "../../../services/alertService";
 
 import { Ionicons } from "@expo/vector-icons";
 import { useFocusEffect, useLocalSearchParams, useRouter } from "expo-router";

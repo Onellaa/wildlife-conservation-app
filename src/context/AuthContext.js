@@ -151,14 +151,16 @@ export const AuthProvider = ({ children }) => {
   // CONTEXT VALUE
   // =====================================================
 
+  const normalizedRole = profile?.role?.trim().toLowerCase() ?? null;
+
   const value = {
     user,
     session,
     profile,
-    role: profile?.role ?? null, // convenience
-    isRanger: profile?.role === "ranger", // convenience
-    isAdmin: profile?.role === "admin",
-    isParkManager: profile?.role === "park_manager",
+    role: normalizedRole, // convenience
+    isRanger: normalizedRole === "ranger",
+    isAdmin: normalizedRole === "admin",
+    isParkManager: normalizedRole === "park_manager",
     loading,
     signIn,
     signOut,

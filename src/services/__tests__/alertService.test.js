@@ -1,10 +1,10 @@
-jest.mock("../../../../lib/supabase", () => ({
+jest.mock("../../../lib/supabase", () => ({
   supabase: {
     from: jest.fn(),
   },
 }));
 
-import { supabase } from "../../../../lib/supabase";
+import { supabase } from "../../../lib/supabase";
 
 import {
   getActiveAlerts,
@@ -55,16 +55,12 @@ describe("alertService", () => {
 
     expect(result).toEqual(mockAlerts);
 
-    expect(supabase.from).toHaveBeenCalledWith(
-      "alerts"
-    );
+    expect(supabase.from).toHaveBeenCalledWith("alerts");
   });
 });
 
 test("getActiveAlerts throws error when Supabase fails", async () => {
-  const mockError = new Error(
-    "Database connection failed"
-  );
+  const mockError = new Error("Database connection failed");
 
   const order = jest.fn().mockResolvedValue({
     data: null,
@@ -83,11 +79,7 @@ test("getActiveAlerts throws error when Supabase fails", async () => {
     select,
   });
 
-  await expect(
-    getActiveAlerts()
-  ).rejects.toThrow(
-    "Database connection failed"
-  );
+  await expect(getActiveAlerts()).rejects.toThrow("Database connection failed");
 });
 
 test("acknowledgeAlert updates alert status to ACKNOWLEDGED", async () => {
@@ -117,17 +109,14 @@ test("acknowledgeAlert updates alert status to ACKNOWLEDGED", async () => {
     update,
   });
 
-  const result =
-    await acknowledgeAlert("alert-1");
+  const result = await acknowledgeAlert("alert-1");
 
-  expect(result.status).toBe(
-    "ACKNOWLEDGED"
-  );
+  expect(result.status).toBe("ACKNOWLEDGED");
 
   expect(update).toHaveBeenCalledWith(
     expect.objectContaining({
       status: "ACKNOWLEDGED",
-    })
+    }),
   );
 });
 
@@ -153,9 +142,7 @@ test("acknowledgeAlert throws when database update fails", async () => {
     update,
   });
 
-  await expect(
-    acknowledgeAlert("alert-1")
-  ).rejects.toThrow("Update failed");
+  await expect(acknowledgeAlert("alert-1")).rejects.toThrow("Update failed");
 });
 test("getAlertById returns the selected alert", async () => {
   const mockAlert = {
@@ -184,14 +171,11 @@ test("getAlertById returns the selected alert", async () => {
     select,
   });
 
-  const result =
-    await getAlertById("alert-1");
+  const result = await getAlertById("alert-1");
 
   expect(result).toEqual(mockAlert);
 
-  expect(supabase.from).toHaveBeenCalledWith(
-    "alerts"
-  );
+  expect(supabase.from).toHaveBeenCalledWith("alerts");
 });
 
 test("getAlertById throws error when alert cannot be loaded", async () => {
@@ -212,9 +196,7 @@ test("getAlertById throws error when alert cannot be loaded", async () => {
     select,
   });
 
-  await expect(
-    getAlertById("wrong-id")
-  ).rejects.toThrow("Alert not found");
+  await expect(getAlertById("wrong-id")).rejects.toThrow("Alert not found");
 });
 
 test("getAlertResponses returns response history", async () => {
@@ -248,8 +230,7 @@ test("getAlertResponses returns response history", async () => {
     select,
   });
 
-  const result =
-    await getAlertResponses("alert-1");
+  const result = await getAlertResponses("alert-1");
 
   expect(result).toEqual(mockResponses);
 });
@@ -257,9 +238,7 @@ test("getAlertResponses returns response history", async () => {
 test("getAlertResponses throws when database request fails", async () => {
   const order = jest.fn().mockResolvedValue({
     data: null,
-    error: new Error(
-      "Unable to load responses"
-    ),
+    error: new Error("Unable to load responses"),
   });
 
   const eq = jest.fn(() => ({
@@ -274,10 +253,8 @@ test("getAlertResponses throws when database request fails", async () => {
     select,
   });
 
-  await expect(
-    getAlertResponses("alert-1")
-  ).rejects.toThrow(
-    "Unable to load responses"
+  await expect(getAlertResponses("alert-1")).rejects.toThrow(
+    "Unable to load responses",
   );
 });
 test("saveAlertResponse saves response and updates alert status", async () => {
@@ -294,11 +271,10 @@ test("saveAlertResponse saves response and updates alert status", async () => {
     status: "MONITORING",
   };
 
-  const responseSingle =
-    jest.fn().mockResolvedValue({
-      data: mockResponse,
-      error: null,
-    });
+  const responseSingle = jest.fn().mockResolvedValue({
+    data: mockResponse,
+    error: null,
+  });
 
   const responseSelect = jest.fn(() => ({
     single: responseSingle,
@@ -308,11 +284,10 @@ test("saveAlertResponse saves response and updates alert status", async () => {
     select: responseSelect,
   }));
 
-  const alertSingle =
-    jest.fn().mockResolvedValue({
-      data: mockAlert,
-      error: null,
-    });
+  const alertSingle = jest.fn().mockResolvedValue({
+    data: mockAlert,
+    error: null,
+  });
 
   const alertSelect = jest.fn(() => ({
     single: alertSingle,
@@ -334,17 +309,14 @@ test("saveAlertResponse saves response and updates alert status", async () => {
       update,
     });
 
-  const result =
-    await saveAlertResponse({
-      alertId: "alert-1",
-      responseType: "MONITOR",
-      status: "MONITORING",
-      notes: "Animal moving away",
-    });
+  const result = await saveAlertResponse({
+    alertId: "alert-1",
+    responseType: "MONITOR",
+    status: "MONITORING",
+    notes: "Animal moving away",
+  });
 
-  expect(result.response).toEqual(
-    mockResponse
-  );
+  expect(result.response).toEqual(mockResponse);
 
   expect(result.alert).toEqual(mockAlert);
 
@@ -365,9 +337,7 @@ test("saveAlertResponse throws when response insert fails", async () => {
     select: jest.fn(() => ({
       single: jest.fn().mockResolvedValue({
         data: null,
-        error: new Error(
-          "Response insert failed"
-        ),
+        error: new Error("Response insert failed"),
       }),
     })),
   }));
@@ -382,10 +352,8 @@ test("saveAlertResponse throws when response insert fails", async () => {
       responseType: "MONITOR",
       status: "MONITORING",
       notes: "Test note",
-    })
-  ).rejects.toThrow(
-    "Response insert failed"
-  );
+    }),
+  ).rejects.toThrow("Response insert failed");
 });
 
 test("saveAlertResponse throws when alert status update fails", async () => {
@@ -403,13 +371,10 @@ test("saveAlertResponse throws when alert status update fails", async () => {
   const update = jest.fn(() => ({
     eq: jest.fn(() => ({
       select: jest.fn(() => ({
-        single:
-          jest.fn().mockResolvedValue({
-            data: null,
-            error: new Error(
-              "Status update failed"
-            ),
-          }),
+        single: jest.fn().mockResolvedValue({
+          data: null,
+          error: new Error("Status update failed"),
+        }),
       })),
     })),
   }));
@@ -428,10 +393,8 @@ test("saveAlertResponse throws when alert status update fails", async () => {
       responseType: "INTERVENE",
       status: "RESPONDING",
       notes: "Proceeding to field",
-    })
-  ).rejects.toThrow(
-    "Status update failed"
-  );
+    }),
+  ).rejects.toThrow("Status update failed");
 });
 
 test("resolveAlert successfully resolves an alert", async () => {
@@ -460,11 +423,10 @@ test("resolveAlert successfully resolves an alert", async () => {
   };
 
   // 1. Load current alert
-  const currentAlertSingle =
-    jest.fn().mockResolvedValue({
-      data: currentAlert,
-      error: null,
-    });
+  const currentAlertSingle = jest.fn().mockResolvedValue({
+    data: currentAlert,
+    error: null,
+  });
 
   const currentAlertEq = jest.fn(() => ({
     single: currentAlertSingle,
@@ -475,11 +437,10 @@ test("resolveAlert successfully resolves an alert", async () => {
   }));
 
   // 2. Check existing responses
-  const responseLimit =
-    jest.fn().mockResolvedValue({
-      data: existingResponses,
-      error: null,
-    });
+  const responseLimit = jest.fn().mockResolvedValue({
+    data: existingResponses,
+    error: null,
+  });
 
   const responseNeq = jest.fn(() => ({
     limit: responseLimit,
@@ -494,11 +455,10 @@ test("resolveAlert successfully resolves an alert", async () => {
   }));
 
   // 3. Insert resolution response
-  const resolutionSingle =
-    jest.fn().mockResolvedValue({
-      data: resolutionResponse,
-      error: null,
-    });
+  const resolutionSingle = jest.fn().mockResolvedValue({
+    data: resolutionResponse,
+    error: null,
+  });
 
   const resolutionSelect = jest.fn(() => ({
     single: resolutionSingle,
@@ -509,11 +469,10 @@ test("resolveAlert successfully resolves an alert", async () => {
   }));
 
   // 4. Update alert to RESOLVED
-  const resolvedSingle =
-    jest.fn().mockResolvedValue({
-      data: resolvedAlert,
-      error: null,
-    });
+  const resolvedSingle = jest.fn().mockResolvedValue({
+    data: resolvedAlert,
+    error: null,
+  });
 
   const resolvedSelect = jest.fn(() => ({
     single: resolvedSingle,
@@ -543,16 +502,12 @@ test("resolveAlert successfully resolves an alert", async () => {
 
   const result = await resolveAlert(
     "alert-1",
-    "Animal returned safely to forest."
+    "Animal returned safely to forest.",
   );
 
-  expect(result.response).toEqual(
-    resolutionResponse
-  );
+  expect(result.response).toEqual(resolutionResponse);
 
-  expect(result.alert).toEqual(
-    resolvedAlert
-  );
+  expect(result.alert).toEqual(resolvedAlert);
 
   expect(resolutionInsert).toHaveBeenCalledWith({
     alert_id: "alert-1",
@@ -564,7 +519,7 @@ test("resolveAlert successfully resolves an alert", async () => {
   expect(resolvedUpdate).toHaveBeenCalledWith(
     expect.objectContaining({
       status: "RESOLVED",
-    })
+    }),
   );
 });
 
@@ -590,21 +545,14 @@ test("resolveAlert throws if alert is already resolved", async () => {
   });
 
   await expect(
-    resolveAlert(
-      "alert-1",
-      "Trying to resolve again"
-    )
-  ).rejects.toThrow(
-    "This alert is already resolved."
-  );
+    resolveAlert("alert-1", "Trying to resolve again"),
+  ).rejects.toThrow("This alert is already resolved.");
 });
 
 test("resolveAlert throws if current alert cannot be loaded", async () => {
   const single = jest.fn().mockResolvedValue({
     data: null,
-    error: new Error(
-      "Unable to load alert"
-    ),
+    error: new Error("Unable to load alert"),
   });
 
   const eq = jest.fn(() => ({
@@ -619,25 +567,19 @@ test("resolveAlert throws if current alert cannot be loaded", async () => {
     select,
   });
 
-  await expect(
-    resolveAlert(
-      "alert-1",
-      "Final note"
-    )
-  ).rejects.toThrow(
-    "Unable to load alert"
+  await expect(resolveAlert("alert-1", "Final note")).rejects.toThrow(
+    "Unable to load alert",
   );
 });
 
 test("resolveAlert throws when no previous response exists", async () => {
-  const currentAlertSingle =
-    jest.fn().mockResolvedValue({
-      data: {
-        id: "alert-1",
-        status: "ACKNOWLEDGED",
-      },
-      error: null,
-    });
+  const currentAlertSingle = jest.fn().mockResolvedValue({
+    data: {
+      id: "alert-1",
+      status: "ACKNOWLEDGED",
+    },
+    error: null,
+  });
 
   const currentAlertEq = jest.fn(() => ({
     single: currentAlertSingle,
@@ -672,25 +614,19 @@ test("resolveAlert throws when no previous response exists", async () => {
       select: responseSelect,
     });
 
-  await expect(
-    resolveAlert(
-      "alert-1",
-      "Final note"
-    )
-  ).rejects.toThrow(
-    "At least one response must be recorded before resolving the alert."
+  await expect(resolveAlert("alert-1", "Final note")).rejects.toThrow(
+    "At least one response must be recorded before resolving the alert.",
   );
 });
 
 test("resolveAlert throws when checking existing responses fails", async () => {
-  const currentAlertSingle =
-    jest.fn().mockResolvedValue({
-      data: {
-        id: "alert-1",
-        status: "MONITORING",
-      },
-      error: null,
-    });
+  const currentAlertSingle = jest.fn().mockResolvedValue({
+    data: {
+      id: "alert-1",
+      status: "MONITORING",
+    },
+    error: null,
+  });
 
   const currentAlertEq = jest.fn(() => ({
     single: currentAlertSingle,
@@ -702,9 +638,7 @@ test("resolveAlert throws when checking existing responses fails", async () => {
 
   const limit = jest.fn().mockResolvedValue({
     data: null,
-    error: new Error(
-      "Response check failed"
-    ),
+    error: new Error("Response check failed"),
   });
 
   const neq = jest.fn(() => ({
@@ -727,25 +661,19 @@ test("resolveAlert throws when checking existing responses fails", async () => {
       select: responseSelect,
     });
 
-  await expect(
-    resolveAlert(
-      "alert-1",
-      "Final note"
-    )
-  ).rejects.toThrow(
-    "Response check failed"
+  await expect(resolveAlert("alert-1", "Final note")).rejects.toThrow(
+    "Response check failed",
   );
 });
 
 test("resolveAlert throws when resolution response insert fails", async () => {
-  const currentAlertSingle =
-    jest.fn().mockResolvedValue({
-      data: {
-        id: "alert-1",
-        status: "MONITORING",
-      },
-      error: null,
-    });
+  const currentAlertSingle = jest.fn().mockResolvedValue({
+    data: {
+      id: "alert-1",
+      status: "MONITORING",
+    },
+    error: null,
+  });
 
   const currentAlertEq = jest.fn(() => ({
     single: currentAlertSingle,
@@ -776,9 +704,7 @@ test("resolveAlert throws when resolution response insert fails", async () => {
     select: jest.fn(() => ({
       single: jest.fn().mockResolvedValue({
         data: null,
-        error: new Error(
-          "Resolution insert failed"
-        ),
+        error: new Error("Resolution insert failed"),
       }),
     })),
   }));
@@ -794,25 +720,19 @@ test("resolveAlert throws when resolution response insert fails", async () => {
       insert,
     });
 
-  await expect(
-    resolveAlert(
-      "alert-1",
-      "Final note"
-    )
-  ).rejects.toThrow(
-    "Resolution insert failed"
+  await expect(resolveAlert("alert-1", "Final note")).rejects.toThrow(
+    "Resolution insert failed",
   );
 });
 
 test("resolveAlert throws when final alert update fails", async () => {
-  const currentAlertSingle =
-    jest.fn().mockResolvedValue({
-      data: {
-        id: "alert-1",
-        status: "RESPONDING",
-      },
-      error: null,
-    });
+  const currentAlertSingle = jest.fn().mockResolvedValue({
+    data: {
+      id: "alert-1",
+      status: "RESPONDING",
+    },
+    error: null,
+  });
 
   const currentAlertEq = jest.fn(() => ({
     single: currentAlertSingle,
@@ -853,13 +773,10 @@ test("resolveAlert throws when final alert update fails", async () => {
   const update = jest.fn(() => ({
     eq: jest.fn(() => ({
       select: jest.fn(() => ({
-        single:
-          jest.fn().mockResolvedValue({
-            data: null,
-            error: new Error(
-              "Final update failed"
-            ),
-          }),
+        single: jest.fn().mockResolvedValue({
+          data: null,
+          error: new Error("Final update failed"),
+        }),
       })),
     })),
   }));
@@ -878,13 +795,7 @@ test("resolveAlert throws when final alert update fails", async () => {
       update,
     });
 
-  await expect(
-    resolveAlert(
-      "alert-1",
-      "Final note"
-    )
-  ).rejects.toThrow(
-    "Final update failed"
+  await expect(resolveAlert("alert-1", "Final note")).rejects.toThrow(
+    "Final update failed",
   );
 });
-

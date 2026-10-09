@@ -54,7 +54,11 @@ export default function LogIncidentSuccessScreen() {
 
       <TouchableOpacity
         style={styles.primaryButton}
-        onPress={() => router.replace("/(tabs)")}
+        onPress={() =>
+          router.replace(
+            "/(tabs)/features/log-field-incident/ActivePatrolScreen",
+          )
+        }
       >
         <Text style={styles.primaryButtonText}>Back to Patrol</Text>
       </TouchableOpacity>
