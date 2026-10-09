@@ -1,14 +1,23 @@
-import {
-  flagImageAsSuspicious,
-  getCameraTrapImageById,
-  getCameraTrapImages,
-  getFlaggedImages,
-  markImageReviewed,
-  resetCameraTrapRepository,
-  saveClassification,
-  updateInvestigationStatus,
-} from "../services/cameraTrapRepository";
+const mockFrom = jest.fn();
 
+jest.mock("../../../../lib/supabase", () => ({
+  supabase: {
+    from: mockFrom,
+  },
+}));
+
+const {
+  getCameraTrapImages,
+  getCameraTrapImageById,
+  saveClassification,
+  markImageReviewed,
+  markImageInconclusive,
+  flagImageAsPoacherEvidence,
+  flagImageAsSuspicious,
+  acknowledgePoacherAlert,
+  getFlaggedImages,
+  updateInvestigationStatus,
+} = require("../services/cameraTrapRepository");
 beforeEach(() => {
   resetCameraTrapRepository();
 });

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<coverage generated="1791539991321" clover="3.2.0">
+  <project timestamp="1791539991321" name="All files">
+    <metrics statements="16" coveredstatements="14" conditionals="18" coveredconditionals="16" methods="3" coveredmethods="3" elements="37" coveredelements="33" complexity="0" loc="16" ncloc="16" packages="1" files="1" classes="1"/>
+    <file name="validation.js" path="/Users/onelladias/Desktop/wildlife-conservation-app/src/features/feature4/utils/validation.js">
+      <metrics statements="16" coveredstatements="14" conditionals="18" coveredconditionals="16" methods="3" coveredmethods="3"/>
+      <line num="2" count="4" type="stmt"/>
+      <line num="4" count="4" type="cond" truecount="4" falsecount="0"/>
+      <line num="5" count="1" type="stmt"/>
+      <line num="8" count="4" type="stmt"/>
+      <line num="9" count="4" type="cond" truecount="4" falsecount="0"/>
+      <line num="10" count="2" type="stmt"/>
+      <line num="13" count="4" type="stmt"/>
+      <line num="20" count="2" type="stmt"/>
+      <line num="22" count="2" type="cond" truecount="3" falsecount="1"/>
+      <line num="23" count="0" type="stmt"/>
+      <line num="26" count="2" type="cond" truecount="3" falsecount="1"/>
+      <line num="27" count="0" type="stmt"/>
+      <line num="30" count="2" type="cond" truecount="2" falsecount="0"/>
+      <line num="31" count="1" type="stmt"/>
+      <line num="34" count="2" type="stmt"/>
+      <line num="41" count="4" type="stmt"/>
+    </file>
+  </project>
+</coverage>
