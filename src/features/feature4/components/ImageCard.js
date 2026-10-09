@@ -1,59 +1,57 @@
-import { Image, Pressable, StyleSheet, Text, View } from "react-native";
+import { ImageBackground, Pressable, StyleSheet, Text, View } from "react-native";
 import StatusBadge from "./StatusBadge";
+import { feature4Theme as t } from "../theme";
 
 export default function ImageCard({ item, onPress }) {
   return (
     <Pressable style={styles.card} onPress={onPress}>
-      <Image source={{ uri: item.imageUrl }} style={styles.image} />
-      <View style={styles.content}>
-        <View style={styles.row}>
-          <Text style={styles.camera}>{item.cameraTrapId}</Text>
+      <ImageBackground
+        source={{ uri: item.imageUrl }}
+        style={styles.image}
+        imageStyle={styles.imageRadius}
+      >
+        <View style={styles.overlay}>
           <StatusBadge status={item.reviewStatus} />
+          <View style={styles.bottom}>
+            <Text style={styles.camera}>{item.cameraTrapId}</Text>
+            <Text style={styles.location} numberOfLines={1}>{item.location}</Text>
+            <Text style={styles.meta}>
+              {new Date(item.timestamp).toLocaleDateString()} ·{" "}
+              {new Date(item.timestamp).toLocaleTimeString([], {
+                hour: "2-digit",
+                minute: "2-digit",
+              })}
+            </Text>
+          </View>
         </View>
-        <Text style={styles.location}>{item.location}</Text>
-        <Text style={styles.meta}>
-          {new Date(item.timestamp).toLocaleString()}
-        </Text>
-      </View>
+      </ImageBackground>
     </Pressable>
   );
 }
 
 const styles = StyleSheet.create({
   card: {
-    backgroundColor: "#FFFFFF",
-    borderRadius: 18,
+    flex: 1,
+    borderRadius: 22,
     overflow: "hidden",
-    marginBottom: 16,
+    backgroundColor: t.card,
     borderWidth: 1,
-    borderColor: "#E5E7EB",
+    borderColor: t.border,
   },
-  image: {
-    width: "100%",
-    height: 210,
-    backgroundColor: "#E5E7EB",
-  },
-  content: {
-    padding: 14,
-  },
-  row: {
-    flexDirection: "row",
+  image: { height: 245, justifyContent: "space-between" },
+  imageRadius: { borderRadius: 22 },
+  overlay: {
+    flex: 1,
+    padding: 12,
     justifyContent: "space-between",
-    alignItems: "center",
+    backgroundColor: "rgba(5, 12, 4, 0.18)",
   },
-  camera: {
-    fontSize: 16,
-    fontWeight: "800",
-    color: "#17352C",
+  bottom: {
+    backgroundColor: "rgba(8, 16, 6, 0.78)",
+    borderRadius: 16,
+    padding: 12,
   },
-  location: {
-    marginTop: 8,
-    fontSize: 14,
-    color: "#374151",
-  },
-  meta: {
-    marginTop: 4,
-    fontSize: 12,
-    color: "#6B7280",
-  },
+  camera: { color: t.text, fontSize: 16, fontWeight: "900" },
+  location: { color: t.accent, fontSize: 13, fontWeight: "700", marginTop: 4 },
+  meta: { color: t.muted, fontSize: 11, marginTop: 5 },
 });

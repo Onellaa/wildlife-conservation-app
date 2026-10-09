@@ -1,19 +1,11 @@
 import { Pressable, StyleSheet, Text } from "react-native";
+import { feature4Theme as t } from "../theme";
 
-export default function PrimaryButton({
-  title,
-  onPress,
-  danger = false,
-  outline = false,
-}) {
+export default function PrimaryButton({ title, onPress, danger = false, outline = false }) {
   return (
     <Pressable
       onPress={onPress}
-      style={[
-        styles.button,
-        danger && styles.danger,
-        outline && styles.outline,
-      ]}
+      style={[styles.button, danger && styles.danger, outline && styles.outline]}
     >
       <Text style={[styles.text, outline && styles.outlineText]}>{title}</Text>
     </Pressable>
@@ -22,28 +14,24 @@ export default function PrimaryButton({
 
 const styles = StyleSheet.create({
   button: {
-    minHeight: 50,
-    borderRadius: 14,
+    minHeight: 52,
+    borderRadius: 18,
     paddingHorizontal: 18,
     alignItems: "center",
     justifyContent: "center",
-    backgroundColor: "#1F6B4F",
-    marginTop: 12,
+    backgroundColor: t.accent,
+    marginTop: 14,
   },
-  danger: {
-    backgroundColor: "#C62828",
-  },
+  danger: { backgroundColor: t.danger },
   outline: {
-    backgroundColor: "#FFFFFF",
+    backgroundColor: "transparent",
     borderWidth: 1,
-    borderColor: "#1F6B4F",
+    borderColor: t.accent,
   },
   text: {
-    color: "#FFFFFF",
+    color: t.black,
     fontSize: 15,
-    fontWeight: "800",
+    fontWeight: "900",
   },
-  outlineText: {
-    color: "#1F6B4F",
-  },
+  outlineText: { color: t.accent },
 });

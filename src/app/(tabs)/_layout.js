@@ -39,7 +39,16 @@ export default function TabLayout() {
         name="log-field-incident"
         options={{ title: "Log Incident" }}
       />
-      <Tabs.Screen name="settings" options={{ title: "Settings" }} />
+
+      <Tabs.Screen
+        name="camera-trap"
+        options={{ title: "Camera Traps" }}
+      />
+
+      <Tabs.Screen
+        name="settings"
+        options={{ title: "Settings" }}
+      />
     </Tabs>
   );
 }

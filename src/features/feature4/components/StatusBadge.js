@@ -1,21 +1,21 @@
 import { StyleSheet, Text, View } from "react-native";
+import { feature4Theme as t } from "../theme";
 
-const statusStyles = {
-  NEW: { backgroundColor: "#DBEAFE", color: "#1D4ED8" },
-  REVIEWED: { backgroundColor: "#DCFCE7", color: "#166534" },
-  FLAGGED: { backgroundColor: "#FEE2E2", color: "#B91C1C" },
-  PENDING: { backgroundColor: "#FEF3C7", color: "#92400E" },
-  UNDER_INVESTIGATION: { backgroundColor: "#FFEDD5", color: "#C2410C" },
-  RESOLVED: { backgroundColor: "#DCFCE7", color: "#166534" },
+const palette = {
+  NEW: { bg: "#2F4317", fg: t.accent },
+  REVIEWED: { bg: "#1E382A", fg: "#A7F3D0" },
+  FLAGGED: { bg: "#452020", fg: "#FFAAAA" },
+  PENDING: { bg: "#4B3A13", fg: "#F8D477" },
+  UNDER_INVESTIGATION: { bg: "#4A2C13", fg: "#FDBA74" },
+  RESOLVED: { bg: "#1E382A", fg: "#A7F3D0" },
 };
 
 export default function StatusBadge({ status }) {
-  const selected =
-    statusStyles[status] || { backgroundColor: "#E5E7EB", color: "#374151" };
+  const selected = palette[status] || { bg: t.cardAlt, fg: t.muted };
 
   return (
-    <View style={[styles.badge, { backgroundColor: selected.backgroundColor }]}>
-      <Text style={[styles.text, { color: selected.color }]}>
+    <View style={[styles.badge, { backgroundColor: selected.bg }]}>
+      <Text style={[styles.text, { color: selected.fg }]}>
         {String(status || "UNKNOWN").replaceAll("_", " ")}
       </Text>
     </View>
@@ -27,10 +27,12 @@ const styles = StyleSheet.create({
     alignSelf: "flex-start",
     borderRadius: 999,
     paddingHorizontal: 10,
-    paddingVertical: 5,
+    paddingVertical: 6,
+    borderWidth: 1,
+    borderColor: t.border,
   },
   text: {
-    fontSize: 11,
-    fontWeight: "700",
+    fontSize: 10,
+    fontWeight: "900",
   },
 });
