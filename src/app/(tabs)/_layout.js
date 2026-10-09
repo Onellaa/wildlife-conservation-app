@@ -63,6 +63,12 @@ export default function TabLayout() {
           ),
         }}
       />
+
+      <Tabs.Screen
+        name="camera-trap"
+        options={{ title: "Camera Traps" }}
+      />
+
     </Tabs>
   );
 }
