@@ -6,7 +6,15 @@
     "start": "expo start",
     "android": "expo start --android",
     "ios": "expo start --ios",
-    "web": "expo start --web --offline"
+    "web": "expo start --web --offline",
+    "test": "jest",
+    "test:coverage": "jest --coverage"
+  },
+  "jest": {
+    "preset": "jest-expo",
+    "testPathIgnorePatterns": [
+      "/node_modules/"
+    ]
   },
   "dependencies": {
     "@expo-google-fonts/nunito": "^0.4.2",
@@ -19,6 +27,7 @@
     "expo-router": "~6.0.24",
     "expo-sqlite": "~16.0.10",
     "expo-status-bar": "~3.0.9",
+    "jest-expo": "~54.0.18",
     "react": "19.1.0",
     "react-dom": "19.1.0",
     "react-native": "0.81.5",
@@ -26,5 +35,8 @@
     "react-native-screens": "~4.16.0",
     "react-native-web": "^0.21.0"
   },
-  "private": true
+  "private": true,
+  "devDependencies": {
+    "jest": "^29.7.0"
+  }
 }
