@@ -2,17 +2,16 @@
 import { useState } from "react";
 import {
   View,
-  Text,
-  TextInput,
   TouchableOpacity,
   ActivityIndicator,
   KeyboardAvoidingView,
   Platform,
   ScrollView,
 } from "react-native";
+import { Text, TextInput } from "../../components/NunitoText";
 import { useRouter } from "expo-router";
-import { loginStyles as styles, COLORS } from "../styles/loginStyles";
-import { authService } from "../services/authService";
+import { loginStyles as styles, COLORS } from "../../styles/loginStyles";
+import { authService } from "../../services/authService";
 
 export default function LoginScreen() {
   const [email, setEmail] = useState("");
@@ -44,7 +43,9 @@ export default function LoginScreen() {
         case "ranger":
           if (!patrol) {
             // Ranger has no active patrol — send them to start one
-            router.replace("/(tabs)/start-patrol");
+            router.replace(
+              "/(tabs)/features/log-field-incident/StartPatrolScreen",
+            );
           } else {
             router.replace("/(tabs)");
           }
