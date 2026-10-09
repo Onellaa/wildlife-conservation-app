@@ -19,7 +19,7 @@ import {
   getAlertById,
   getAlertResponses,
   resolveAlert,
-} from "../../services/alertService";
+} from "../services/alertService";
 
 export default function ResolutionScreen() {
   const router = useRouter();
@@ -439,95 +439,95 @@ const styles = StyleSheet.create({
     marginTop: 18,
   },
   resolveCard: {
-  backgroundColor: "#FFFFFF",
-  borderRadius: 18,
-  padding: 18,
-  marginTop: 18,
+    backgroundColor: "#FFFFFF",
+    borderRadius: 18,
+    padding: 18,
+    marginTop: 18,
 
-  shadowColor: "#000",
-  shadowOpacity: 0.04,
-  shadowRadius: 5,
-  elevation: 2,
-},
+    shadowColor: "#000",
+    shadowOpacity: 0.04,
+    shadowRadius: 5,
+    elevation: 2,
+  },
 
-resolveHeader: {
-  flexDirection: "row",
-  alignItems: "center",
-  marginBottom: 18,
-},
+  resolveHeader: {
+    flexDirection: "row",
+    alignItems: "center",
+    marginBottom: 18,
+  },
 
-resolveIcon: {
-  width: 48,
-  height: 48,
-  borderRadius: 15,
-  backgroundColor: "#E5F4EB",
-  justifyContent: "center",
-  alignItems: "center",
-},
+  resolveIcon: {
+    width: 48,
+    height: 48,
+    borderRadius: 15,
+    backgroundColor: "#E5F4EB",
+    justifyContent: "center",
+    alignItems: "center",
+  },
 
-resolveHeaderText: {
-  flex: 1,
-  marginLeft: 12,
-},
+  resolveHeaderText: {
+    flex: 1,
+    marginLeft: 12,
+  },
 
-resolveTitle: {
-  fontSize: 17,
-  fontWeight: "900",
-  color: "#174B37",
-},
+  resolveTitle: {
+    fontSize: 17,
+    fontWeight: "900",
+    color: "#174B37",
+  },
 
-resolveDescription: {
-  fontSize: 11,
-  color: "#758079",
-  lineHeight: 16,
-  marginTop: 3,
-},
+  resolveDescription: {
+    fontSize: 11,
+    color: "#758079",
+    lineHeight: 16,
+    marginTop: 3,
+  },
 
-resolveLabel: {
-  fontSize: 13,
-  fontWeight: "700",
-  color: "#34473E",
-  marginBottom: 8,
-},
+  resolveLabel: {
+    fontSize: 13,
+    fontWeight: "700",
+    color: "#34473E",
+    marginBottom: 8,
+  },
 
-resolveInput: {
-  minHeight: 120,
-  borderWidth: 1.5,
-  borderColor: "#DDE3DF",
-  backgroundColor: "#FAFBFA",
-  borderRadius: 14,
-  padding: 14,
-  fontSize: 13,
-  color: "#26362F",
-},
+  resolveInput: {
+    minHeight: 120,
+    borderWidth: 1.5,
+    borderColor: "#DDE3DF",
+    backgroundColor: "#FAFBFA",
+    borderRadius: 14,
+    padding: 14,
+    fontSize: 13,
+    color: "#26362F",
+  },
 
-characterCount: {
-  textAlign: "right",
-  color: "#939B97",
-  fontSize: 10,
-  marginTop: 5,
-},
+  characterCount: {
+    textAlign: "right",
+    color: "#939B97",
+    fontSize: 10,
+    marginTop: 5,
+  },
 
-resolveButton: {
-  backgroundColor: "#176B4D",
-  height: 54,
-  borderRadius: 13,
-  flexDirection: "row",
-  alignItems: "center",
-  justifyContent: "center",
-  marginTop: 16,
-},
+  resolveButton: {
+    backgroundColor: "#176B4D",
+    height: 54,
+    borderRadius: 13,
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    marginTop: 16,
+  },
 
-resolveButtonDisabled: {
-  opacity: 0.6,
-},
+  resolveButtonDisabled: {
+    opacity: 0.6,
+  },
 
-resolveButtonText: {
-  color: "#FFFFFF",
-  fontSize: 14,
-  fontWeight: "900",
-  marginLeft: 8,
-},
+  resolveButtonText: {
+    color: "#FFFFFF",
+    fontSize: 14,
+    fontWeight: "900",
+    marginLeft: 8,
+  },
 
   subtitle: {
     textAlign: "center",

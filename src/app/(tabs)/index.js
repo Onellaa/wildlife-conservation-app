@@ -17,7 +17,7 @@ import {
   SafeAreaView,
 } from "react-native";
 import { getDashboardStats } from "../services/dashboardService";
-import { authService } from "../services/authService";
+import { authService } from "../../services/authService";
 
 import { Ionicons } from "@expo/vector-icons";
 import { useRouter, useFocusEffect } from "expo-router";
@@ -31,7 +31,6 @@ import { getActiveAlerts } from "../services/alertService";
 
 export default function HomeScreen() {
   const router = useRouter();
-
 
   const [stats, setStats] = useState({
     activeAlerts: 0,
@@ -187,7 +186,15 @@ export default function HomeScreen() {
           </TouchableOpacity>
 
           {/* LOG INCIDENT */}
-          <View style={styles.featureCard}>
+          <TouchableOpacity
+            style={styles.featureCard}
+            activeOpacity={0.85}
+            onPress={() =>
+              router.push(
+                "/(tabs)/features/log-field-incident/StartPatrolScreen",
+              )
+            }
+          >
             <ImageBackground
               source={require("../../../assets/home/log-incident.jpg")}
               style={styles.cardImage}
@@ -207,10 +214,14 @@ export default function HomeScreen() {
                 Record snares, carcasses or illegal activities.
               </Text>
             </View>
-          </View>
+          </TouchableOpacity>
 
           {/* CAMERA TRAPS */}
-          <View style={styles.featureCard}>
+          <TouchableOpacity
+            style={styles.featureCard}
+            activeOpacity={0.85}
+            onPress={() => router.push("/camera-trap")}
+          >
             <ImageBackground
               source={require("../../../assets/home/camera-trap.jpg")}
               style={styles.cardImage}
@@ -230,10 +241,14 @@ export default function HomeScreen() {
                 View and analyze camera trap images from field locations.
               </Text>
             </View>
-          </View>
+          </TouchableOpacity>
 
           {/* COMMUNITY REPORT */}
-          <View style={styles.featureCard}>
+          <TouchableOpacity
+            style={styles.featureCard}
+            activeOpacity={0.85}
+            onPress={() => router.push("/(tabs)/community-report")}
+          >
             <ImageBackground
               source={require("../../../assets/home/community-report.jpg")}
               style={styles.cardImage}
@@ -255,7 +270,7 @@ export default function HomeScreen() {
                 Report human-wildlife conflict incidents.
               </Text>
             </View>
-          </View>
+          </TouchableOpacity>
         </View>
 
         {/* RECENT ACTIVITY */}
@@ -310,26 +325,8 @@ export default function HomeScreen() {
         <View style={{ height: 25 }} />
       </ScrollView>
     </SafeAreaView>
-
-  // return (
-  //   <View style={styles.container}>
-  //     <Text style={styles.title}>Wildlife Conservation</Text>
-
-  //     <TouchableOpacity
-  //       style={styles.reportButton}
-  //       onPress={() =>
-  //         router.push("/(tabs)/features/community-report")
-  //       }
-  //     >
-  //       <Text style={styles.reportButtonText}>
-  //         Community Conflict Report
-  //       </Text>
-  //     </TouchableOpacity>
-  //   </View>
-
-   );
- }
-
+  );
+}
 
 const styles = StyleSheet.create({
   container: {
@@ -645,4 +642,3 @@ const styles = StyleSheet.create({
     fontWeight: "600",
   },
 });
-

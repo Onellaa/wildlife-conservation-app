@@ -1,7 +1,4 @@
-import React, {
-  useCallback,
-  useState,
-} from "react";
+import React, { useCallback, useState } from "react";
 
 import {
   View,
@@ -13,16 +10,13 @@ import {
   RefreshControl,
 } from "react-native";
 
-import {
-  useRouter,
-  useFocusEffect,
-} from "expo-router";
+import { useRouter, useFocusEffect } from "expo-router";
 
 import { Feather } from "@expo/vector-icons";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 import { supabase } from "../../../../../lib/supabase";
-import { useAuth } from "../../../context/AuthContext";
+import { useAuth } from "../../../../context/AuthContext";
 
 export default function OfficerDashboard() {
   const router = useRouter();
@@ -52,19 +46,13 @@ export default function OfficerDashboard() {
         });
 
       if (error) {
-        console.error(
-          "Error fetching officer reports:",
-          error
-        );
+        console.error("Error fetching officer reports:", error);
         return;
       }
 
       setReports(data || []);
     } catch (error) {
-      console.error(
-        "Unexpected error:",
-        error
-      );
+      console.error("Unexpected error:", error);
     } finally {
       setLoading(false);
       setRefreshing(false);
@@ -74,7 +62,7 @@ export default function OfficerDashboard() {
   useFocusEffect(
     useCallback(() => {
       fetchReports();
-    }, [])
+    }, []),
   );
 
   const handleRefresh = async () => {
@@ -111,30 +99,24 @@ export default function OfficerDashboard() {
   };
 
   const renderReport = ({ item }) => {
-    const statusStyle =
-      getStatusStyle(item.status);
+    const statusStyle = getStatusStyle(item.status);
 
     return (
       <TouchableOpacity
         style={styles.card}
         activeOpacity={0.85}
         onPress={() =>
-          router.push(
-            `/(tabs)/features/officer/report-details?id=${item.id}`
-          )
+          router.push(`/(tabs)/features/officer/report-details?id=${item.id}`)
         }
       >
         <View style={styles.cardHeader}>
-          <Text style={styles.reportId}>
-            {item.report_id}
-          </Text>
+          <Text style={styles.reportId}>{item.report_id}</Text>
 
           <View
             style={[
               styles.statusBadge,
               {
-                backgroundColor:
-                  statusStyle.backgroundColor,
+                backgroundColor: statusStyle.backgroundColor,
               },
             ]}
           >
@@ -142,8 +124,7 @@ export default function OfficerDashboard() {
               style={[
                 styles.statusDot,
                 {
-                  backgroundColor:
-                    statusStyle.color,
+                  backgroundColor: statusStyle.color,
                 },
               ]}
             />
@@ -160,9 +141,7 @@ export default function OfficerDashboard() {
           </View>
         </View>
 
-        <Text style={styles.type}>
-          {item.incident_type}
-        </Text>
+        <Text style={styles.type}>{item.incident_type}</Text>
 
         <View style={styles.locationRow}>
           <Feather
@@ -174,20 +153,16 @@ export default function OfficerDashboard() {
           <Text style={styles.location}>
             {item.manual_location
               ? item.manual_location
-              : item.latitude !== null &&
-                item.longitude !== null
-              ? `GPS Location (${item.latitude.toFixed(
-                  6
-                )}, ${item.longitude.toFixed(6)})`
-              : "Location unavailable"}
+              : item.latitude !== null && item.longitude !== null
+                ? `GPS Location (${item.latitude.toFixed(
+                    6,
+                  )}, ${item.longitude.toFixed(6)})`
+                : "Location unavailable"}
           </Text>
         </View>
 
         {item.description ? (
-          <Text
-            style={styles.description}
-            numberOfLines={2}
-          >
+          <Text style={styles.description} numberOfLines={2}>
             {item.description}
           </Text>
         ) : null}
@@ -196,24 +171,13 @@ export default function OfficerDashboard() {
 
         <View style={styles.cardFooter}>
           <View style={styles.dateRow}>
-            <Feather
-              name="clock"
-              size={13}
-              color="#7A8A82"
-            />
+            <Feather name="clock" size={13} color="#7A8A82" />
             <Text style={styles.date}>
-              Submitted:{" "}
-              {new Date(
-                item.created_at
-              ).toLocaleString()}
+              Submitted: {new Date(item.created_at).toLocaleString()}
             </Text>
           </View>
 
-          <Feather
-            name="arrow-up-right"
-            size={18}
-            color="#235A47"
-          />
+          <Feather name="arrow-up-right" size={18} color="#235A47" />
         </View>
       </TouchableOpacity>
     );
@@ -221,35 +185,21 @@ export default function OfficerDashboard() {
 
   const renderPageHeader = () => (
     <View style={styles.pageHeader}>
-      <Text style={styles.eyebrow}>
-        COMMUNITY REPORTING
-      </Text>
+      <Text style={styles.eyebrow}>COMMUNITY REPORTING</Text>
 
-      <Text style={styles.title}>
-        Officer Dashboard
-      </Text>
+      <Text style={styles.title}>Officer Dashboard</Text>
 
-      <Text style={styles.subtitle}>
-        Community Conflict Reports
-      </Text>
+      <Text style={styles.subtitle}>Community Conflict Reports</Text>
 
       <View style={styles.summaryCard}>
         <View style={styles.summaryIcon}>
-          <Feather
-            name="copy"
-            size={22}
-            color="#FFFFFF"
-          />
+          <Feather name="copy" size={22} color="#FFFFFF" />
         </View>
 
         <View>
-          <Text style={styles.summaryLabel}>
-            Total Reports
-          </Text>
+          <Text style={styles.summaryLabel}>Total Reports</Text>
 
-          <Text style={styles.summaryNumber}>
-            {reports.length}
-          </Text>
+          <Text style={styles.summaryNumber}>{reports.length}</Text>
         </View>
       </View>
     </View>
@@ -258,14 +208,9 @@ export default function OfficerDashboard() {
   if (loading) {
     return (
       <View style={styles.center}>
-        <ActivityIndicator
-          size="large"
-          color="#235A47"
-        />
+        <ActivityIndicator size="large" color="#235A47" />
 
-        <Text style={styles.loadingText}>
-          Loading community reports...
-        </Text>
+        <Text style={styles.loadingText}>Loading community reports...</Text>
       </View>
     );
   }
@@ -273,51 +218,25 @@ export default function OfficerDashboard() {
   return (
     <View style={styles.container}>
       {/* Green header */}
-      <View
-        style={[
-          styles.header,
-          { paddingTop: insets.top + 14 },
-        ]}
-      >
+      <View style={[styles.header, { paddingTop: insets.top + 14 }]}>
         <View style={styles.tab}>
-          <Feather
-            name="shield"
-            size={16}
-            color="#FFFFFF"
-          />
-          <Text style={styles.tabText}>
-            Officer Dashboard
-          </Text>
+          <Feather name="shield" size={16} color="#FFFFFF" />
+          <Text style={styles.tabText}>Officer Dashboard</Text>
         </View>
       </View>
 
       {/* Top bar */}
       <View style={styles.topBar}>
-        <Text style={styles.topBarTitle}>
-          Officer Dashboard
-        </Text>
+        <Text style={styles.topBarTitle}>Officer Dashboard</Text>
 
         <View style={styles.topBarRight}>
           <View style={styles.avatar}>
-            <Feather
-              name="user"
-              size={18}
-              color="#235A47"
-            />
+            <Feather name="user" size={18} color="#235A47" />
           </View>
 
-          <TouchableOpacity
-            style={styles.logoutButton}
-            onPress={handleLogout}
-          >
-            <Feather
-              name="log-out"
-              size={18}
-              color="#FFFFFF"
-            />
-            <Text style={styles.logoutButtonText}>
-              Logout
-            </Text>
+          <TouchableOpacity style={styles.logoutButton} onPress={handleLogout}>
+            <Feather name="log-out" size={18} color="#FFFFFF" />
+            <Text style={styles.logoutButtonText}>Logout</Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -328,20 +247,13 @@ export default function OfficerDashboard() {
 
           <View style={styles.emptyContainer}>
             <View style={styles.emptyIconWrap}>
-              <Feather
-                name="clipboard"
-                size={28}
-                color="#235A47"
-              />
+              <Feather name="clipboard" size={28} color="#235A47" />
             </View>
 
-            <Text style={styles.emptyTitle}>
-              No Reports
-            </Text>
+            <Text style={styles.emptyTitle}>No Reports</Text>
 
             <Text style={styles.emptyText}>
-              There are currently no community conflict
-              reports.
+              There are currently no community conflict reports.
             </Text>
           </View>
         </View>
@@ -354,10 +266,7 @@ export default function OfficerDashboard() {
           contentContainerStyle={styles.list}
           showsVerticalScrollIndicator={false}
           refreshControl={
-            <RefreshControl
-              refreshing={refreshing}
-              onRefresh={handleRefresh}
-            />
+            <RefreshControl refreshing={refreshing} onRefresh={handleRefresh} />
           }
         />
       )}

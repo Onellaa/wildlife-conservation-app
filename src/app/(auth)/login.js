@@ -12,7 +12,6 @@ import { useRouter } from "expo-router";
 import { loginStyles as styles, COLORS } from "../../styles/loginStyles";
 import { authService } from "../../services/authService";
 
-
 export default function LoginScreen() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -25,9 +24,7 @@ export default function LoginScreen() {
     setErrorMessage(null);
 
     if (!email.trim() || !password) {
-      setErrorMessage(
-        "Please enter both email and password."
-      );
+      setErrorMessage("Please enter both email and password.");
       return;
     }
 
@@ -35,34 +32,16 @@ export default function LoginScreen() {
 
     try {
       // 1. Sign in with Supabase auth
-      const { user } =
-        await authService.signIn(
-          email.trim(),
-          password
-        );
+      const { user } = await authService.signIn(email.trim(), password);
 
-      // 2. Fetch the user's profile + active patrol
-      const profile =
-        await authService.getProfile(user.id);
+      // 2. Fetch the user's profile
+      const profile = await authService.getProfile(user.id);
 
-      const patrol =
-        await authService.getActivePatrol(user.id);
-
-    
       // 3. Route based on role
       switch (profile.role) {
         case "ranger":
-          if (!patrol) {
-            // Ranger has no active patrol — send them to start one
-            router.replace(
-              "/(tabs)/features/log-field-incident/StartPatrolScreen",
-            );
-          } else {
-            // Ranger goes to officer dashboard
-            router.replace(
-              "/(tabs)/features/officer/dashboard"
-            );
-          }
+          // Rangers should land on the main home dashboard after login.
+          router.replace("/(tabs)/index");
           break;
 
         case "park_manager":
@@ -72,9 +51,7 @@ export default function LoginScreen() {
 
         case "liaison_officer":
           // Liaison officer goes directly to officer dashboard
-          router.replace(
-            "/(tabs)/features/officer/dashboard"
-          );
+          router.replace("/(tabs)/features/officer/dashboard");
           break;
 
         case "admin":
@@ -92,14 +69,11 @@ export default function LoginScreen() {
           router.replace("/(tabs)/index");
           break;
       }
-
-
     } catch (error) {
       console.error("Login error:", error);
 
       setErrorMessage(
-        error.message ||
-          "Login failed. Please check your credentials."
+        error.message || "Login failed. Please check your credentials.",
       );
     } finally {
       setLoading(false);
@@ -109,11 +83,7 @@ export default function LoginScreen() {
   return (
     <KeyboardAvoidingView
       style={{ flex: 1 }}
-      behavior={
-        Platform.OS === "ios"
-          ? "padding"
-          : undefined
-      }
+      behavior={Platform.OS === "ios" ? "padding" : undefined}
     >
       <ScrollView
         contentContainerStyle={styles.container}
@@ -122,35 +92,25 @@ export default function LoginScreen() {
         <View style={styles.header}>
           <Text style={styles.logo}>🐘</Text>
 
-          <Text style={styles.title}>
-            Wildlife Conservation
-          </Text>
+          <Text style={styles.title}>Wildlife Conservation</Text>
 
-          <Text style={styles.subtitle}>
-            Ranger Sign In
-          </Text>
+          <Text style={styles.subtitle}>Ranger Sign In</Text>
         </View>
 
         <View style={styles.form}>
           {errorMessage && (
             <View style={styles.errorBox}>
-              <Text style={styles.errorText}>
-                {errorMessage}
-              </Text>
+              <Text style={styles.errorText}>{errorMessage}</Text>
             </View>
           )}
 
           <View>
-            <Text style={styles.label}>
-              Email
-            </Text>
+            <Text style={styles.label}>Email</Text>
 
             <TextInput
               style={styles.input}
               placeholder="ranger@wildlife.lk"
-              placeholderTextColor={
-                COLORS.textMuted
-              }
+              placeholderTextColor={COLORS.textMuted}
               value={email}
               onChangeText={setEmail}
               autoCapitalize="none"
@@ -161,16 +121,12 @@ export default function LoginScreen() {
           </View>
 
           <View>
-            <Text style={styles.label}>
-              Password
-            </Text>
+            <Text style={styles.label}>Password</Text>
 
             <TextInput
               style={styles.input}
               placeholder="Enter your password"
-              placeholderTextColor={
-                COLORS.textMuted
-              }
+              placeholderTextColor={COLORS.textMuted}
               value={password}
               onChangeText={setPassword}
               secureTextEntry
@@ -180,11 +136,7 @@ export default function LoginScreen() {
           </View>
 
           <TouchableOpacity
-            style={[
-              styles.button,
-              loading &&
-                styles.buttonDisabled,
-            ]}
+            style={[styles.button, loading && styles.buttonDisabled]}
             onPress={handleLogin}
             disabled={loading}
             activeOpacity={0.8}
@@ -192,9 +144,7 @@ export default function LoginScreen() {
             {loading ? (
               <ActivityIndicator color="#FFFFFF" />
             ) : (
-              <Text style={styles.buttonText}>
-                Sign In
-              </Text>
+              <Text style={styles.buttonText}>Sign In</Text>
             )}
           </TouchableOpacity>
         </View>
@@ -209,4 +159,3 @@ export default function LoginScreen() {
     </KeyboardAvoidingView>
   );
 }
-

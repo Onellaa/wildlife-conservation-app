@@ -10,16 +10,11 @@ import {
   RefreshControl,
 } from "react-native";
 
-import {
-  useFocusEffect,
-  useRouter,
-} from "expo-router";
+import { useFocusEffect, useRouter } from "expo-router";
 
 import { Ionicons } from "@expo/vector-icons";
 
-import {
-  getActiveAlerts,
-} from "../../services/alertService";
+import { getActiveAlerts } from "../services/alertService";
 
 export default function AlertScreen() {
   const router = useRouter();
@@ -49,7 +44,7 @@ export default function AlertScreen() {
   useFocusEffect(
     useCallback(() => {
       loadAlerts();
-    }, [])
+    }, []),
   );
 
   const onRefresh = () => {
@@ -69,14 +64,9 @@ export default function AlertScreen() {
   if (loading) {
     return (
       <View style={styles.loadingContainer}>
-        <ActivityIndicator
-          size="large"
-          color="#176B4D"
-        />
+        <ActivityIndicator size="large" color="#176B4D" />
 
-        <Text style={styles.loadingText}>
-          Loading alerts...
-        </Text>
+        <Text style={styles.loadingText}>Loading alerts...</Text>
       </View>
     );
   }
@@ -90,21 +80,13 @@ export default function AlertScreen() {
             style={styles.backButton}
             onPress={() => router.replace("/")}
           >
-            <Ionicons
-              name="chevron-back"
-              color="#FFFFFF"
-              size={24}
-            />
+            <Ionicons name="chevron-back" color="#FFFFFF" size={24} />
           </TouchableOpacity>
 
-          <Text style={styles.headerTitle}>
-            Field Operations
-          </Text>
+          <Text style={styles.headerTitle}>Field Operations</Text>
         </View>
 
-        <Text style={styles.headerSubtitle}>
-          High-Risk Alerts
-        </Text>
+        <Text style={styles.headerSubtitle}>High-Risk Alerts</Text>
       </View>
 
       <ScrollView
@@ -119,36 +101,22 @@ export default function AlertScreen() {
         }
       >
         <View style={styles.sectionHeader}>
-          <Text style={styles.sectionTitle}>
-            Active Alerts
-          </Text>
+          <Text style={styles.sectionTitle}>Active Alerts</Text>
 
           <View style={styles.countBadge}>
-            <Text style={styles.countText}>
-              {alerts.length}
-            </Text>
+            <Text style={styles.countText}>{alerts.length}</Text>
           </View>
         </View>
 
         {/* ERROR */}
         {error ? (
           <View style={styles.errorBox}>
-            <Ionicons
-              name="alert-circle-outline"
-              size={22}
-              color="#B42318"
-            />
+            <Ionicons name="alert-circle-outline" size={22} color="#B42318" />
 
-            <Text style={styles.errorText}>
-              {error}
-            </Text>
+            <Text style={styles.errorText}>{error}</Text>
 
-            <TouchableOpacity
-              onPress={loadAlerts}
-            >
-              <Text style={styles.retryText}>
-                Retry
-              </Text>
+            <TouchableOpacity onPress={loadAlerts}>
+              <Text style={styles.retryText}>Retry</Text>
             </TouchableOpacity>
           </View>
         ) : null}
@@ -164,13 +132,10 @@ export default function AlertScreen() {
               />
             </View>
 
-            <Text style={styles.emptyTitle}>
-              No Active Alerts
-            </Text>
+            <Text style={styles.emptyTitle}>No Active Alerts</Text>
 
             <Text style={styles.emptyText}>
-              There are currently no unresolved
-              high-risk zone alerts.
+              There are currently no unresolved high-risk zone alerts.
             </Text>
           </View>
         )}
@@ -181,32 +146,22 @@ export default function AlertScreen() {
             key={alert.id}
             style={styles.card}
             activeOpacity={0.85}
-            onPress={() =>
-              router.push(`/alerts/${alert.id}`)
-            }
+            onPress={() => router.push(`/alerts/${alert.id}`)}
           >
             <View style={styles.cardTop}>
               <View style={styles.animalSection}>
                 <Text style={styles.alertId}>
-                  ALERT #
-                  {alert.id
-                    ?.substring(0, 8)
-                    .toUpperCase()}
+                  ALERT #{alert.id?.substring(0, 8).toUpperCase()}
                 </Text>
 
                 <Text style={styles.animalName}>
-                  {alert.animals?.species ||
-                    "Unknown Animal"}{" "}
+                  {alert.animals?.species || "Unknown Animal"}{" "}
                   {alert.animals?.animal_code || ""}
                 </Text>
               </View>
 
               <View style={styles.riskBadge}>
-                <Ionicons
-                  name="warning"
-                  size={13}
-                  color="#C92A2A"
-                />
+                <Ionicons name="warning" size={13} color="#C92A2A" />
 
                 <Text style={styles.riskText}>
                   {alert.risk_level || "HIGH"}
@@ -219,21 +174,14 @@ export default function AlertScreen() {
             {/* ZONE */}
             <View style={styles.infoRow}>
               <View style={styles.infoIcon}>
-                <Ionicons
-                  name="location-outline"
-                  size={20}
-                  color="#176B4D"
-                />
+                <Ionicons name="location-outline" size={20} color="#176B4D" />
               </View>
 
               <View style={styles.infoContent}>
-                <Text style={styles.label}>
-                  High-Risk Zone
-                </Text>
+                <Text style={styles.label}>High-Risk Zone</Text>
 
                 <Text style={styles.value}>
-                  {alert.high_risk_zones
-                    ?.zone_name || "Unknown Zone"}
+                  {alert.high_risk_zones?.zone_name || "Unknown Zone"}
                 </Text>
               </View>
             </View>
@@ -241,58 +189,36 @@ export default function AlertScreen() {
             {/* TIME + STATUS */}
             <View style={styles.bottomRow}>
               <View style={styles.bottomItem}>
-                <Text style={styles.label}>
-                  Alert Time
-                </Text>
+                <Text style={styles.label}>Alert Time</Text>
 
                 <Text style={styles.value}>
-                  {formatAlertTime(
-                    alert.alert_time
-                  )}
+                  {formatAlertTime(alert.alert_time)}
                 </Text>
               </View>
 
               <View style={styles.bottomItem}>
-                <Text style={styles.label}>
-                  Status
-                </Text>
+                <Text style={styles.label}>Status</Text>
 
                 <View
                   style={[
                     styles.statusBadge,
-                    alert.status === "NEW" &&
-                      styles.statusNew,
-                    alert.status ===
-                      "ACKNOWLEDGED" &&
+                    alert.status === "NEW" && styles.statusNew,
+                    alert.status === "ACKNOWLEDGED" &&
                       styles.statusAcknowledged,
-                    alert.status ===
-                      "MONITORING" &&
-                      styles.statusMonitoring,
-                    alert.status ===
-                      "RESPONDING" &&
-                      styles.statusResponding,
-                    alert.status ===
-                      "ESCALATED" &&
-                      styles.statusEscalated,
+                    alert.status === "MONITORING" && styles.statusMonitoring,
+                    alert.status === "RESPONDING" && styles.statusResponding,
+                    alert.status === "ESCALATED" && styles.statusEscalated,
                   ]}
                 >
-                  <Text style={styles.statusText}>
-                    {alert.status}
-                  </Text>
+                  <Text style={styles.statusText}>{alert.status}</Text>
                 </View>
               </View>
             </View>
 
             <View style={styles.openButton}>
-              <Text style={styles.openButtonText}>
-                VIEW ALERT
-              </Text>
+              <Text style={styles.openButtonText}>VIEW ALERT</Text>
 
-              <Ionicons
-                name="arrow-forward"
-                size={18}
-                color="#FFFFFF"
-              />
+              <Ionicons name="arrow-forward" size={18} color="#FFFFFF" />
             </View>
           </TouchableOpacity>
         ))}
@@ -336,8 +262,7 @@ const styles = StyleSheet.create({
     width: 38,
     height: 38,
     borderRadius: 19,
-    backgroundColor:
-      "rgba(255,255,255,0.12)",
+    backgroundColor: "rgba(255,255,255,0.12)",
     justifyContent: "center",
     alignItems: "center",
     marginRight: 12,

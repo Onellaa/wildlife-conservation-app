@@ -12,7 +12,7 @@ import {
 import { useRouter } from "expo-router";
 import { Feather } from "@expo/vector-icons";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { useAuth } from "../../../context/AuthContext";
+import { useAuth } from "../../../../context/AuthContext";
 
 // 👉 Put your elephant photo here, e.g.
 // const HERO_IMAGE = require("../../../../assets/elephant.jpg");

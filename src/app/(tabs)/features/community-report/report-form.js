@@ -19,7 +19,7 @@ import { Feather } from "@expo/vector-icons";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 import { createCommunityConflictReport } from "../../../services/reportService";
-import { useAuth } from "../../../context/AuthContext";
+import { useAuth } from "../../../../context/AuthContext";
 
 import {
   saveReportOffline,

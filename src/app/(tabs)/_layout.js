@@ -1,8 +1,7 @@
-
 import React from "react";
 import { Tabs, Redirect } from "expo-router";
 import { ActivityIndicator, View } from "react-native";
-import { ClipboardList, House, Settings } from "lucide-react-native";
+import { ClipboardList, House, MessageSquareText } from "lucide-react-native";
 import { Ionicons } from "@expo/vector-icons";
 
 import { useAuth } from "../../context/AuthContext";
@@ -84,25 +83,11 @@ export default function TabLayout() {
       />
 
       <Tabs.Screen
-        name="settings"
-        options={getTabOptions(isRanger, "Settings", Settings)}
-      />
-
-      <Tabs.Screen
-        name="features/log-field-incident/PendingSyncScreen"
-        options={getTabOptions(isRanger, "Incidents", ClipboardList)}
-      />
-
-      <Tabs.Screen
-        name="alerts"
+        name="community-report"
         options={{
-          title: "High-Risk Alerts",
-          tabBarIcon: ({ color, focused }) => (
-            <Ionicons
-              name={focused ? "warning" : "warning-outline"}
-              size={25}
-              color={color}
-            />
+          title: "Community Reports",
+          tabBarIcon: ({ color, size }) => (
+            <MessageSquareText color={color} size={size} strokeWidth={2} />
           ),
         }}
       />
@@ -114,89 +99,6 @@ export default function TabLayout() {
           tabBarIcon: ({ color, size }) => (
             <Ionicons name="camera-outline" size={size} color={color} />
           ),
-        }}
-      />
-
-      {/* LOG FIELD INCIDENT SCREENS */}
-
-      <Tabs.Screen
-        name="features/log-field-incident/LogIncidentFormScreen"
-        options={{ href: null }}
-      />
-
-      <Tabs.Screen
-        name="features/log-field-incident/StartPatrolScreen"
-        options={{ href: null }}
-      />
-
-      <Tabs.Screen
-        name="features/log-field-incident/ActivePatrolScreen"
-        options={{ href: null }}
-      />
-
-      <Tabs.Screen
-        name="features/log-field-incident/LogIncidentSuccessScreen"
-        options={{ href: null }}
-      />
-
-      {/* HOME SCREENS */}
-
-      <Tabs.Screen
-        name="features/home/dispatcher"
-        options={{ href: null }}
-      />
-
-      <Tabs.Screen
-        name="features/home/DefaultHome"
-        options={{ href: null }}
-      />
-
-      <Tabs.Screen
-        name="features/settings/SettingsScreen"
-        options={{ href: null }}
-      />
-
-      {/* COMMUNITY CONFLICT REPORT SCREENS */}
-
-      <Tabs.Screen
-        name="features/community-report/index"
-        options={{
-          href: null,
-          title: "Community Conflict Report",
-        }}
-      />
-
-      <Tabs.Screen
-        name="features/community-report/report-form"
-        options={{
-          href: null,
-          title: "Submit a Report",
-        }}
-      />
-
-      <Tabs.Screen
-        name="features/community-report/my-reports"
-        options={{
-          href: null,
-          title: "My Reports",
-        }}
-      />
-
-      {/* OFFICER SCREENS */}
-
-      <Tabs.Screen
-        name="features/officer/dashboard"
-        options={{
-          href: null,
-          title: "Officer Dashboard",
-        }}
-      />
-
-      <Tabs.Screen
-        name="features/officer/report-details"
-        options={{
-          href: null,
-          title: "Report Details",
         }}
       />
     </Tabs>

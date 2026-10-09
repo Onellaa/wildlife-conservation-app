@@ -10,7 +10,7 @@ import {
   Alert,
   ActivityIndicator,
 } from "react-native";
-import { getAlertById, saveAlertResponse } from "../../services/alertService";
+import { getAlertById, saveAlertResponse } from "../services/alertService";
 
 import { Ionicons } from "@expo/vector-icons";
 import { useFocusEffect, useLocalSearchParams, useRouter } from "expo-router";
@@ -370,17 +370,17 @@ const styles = StyleSheet.create({
   flex: {
     flex: 1,
   },
-loadingContainer: {
-  flex: 1,
-  justifyContent: "center",
-  alignItems: "center",
-  backgroundColor: "#F6F8F5",
-},
+  loadingContainer: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "#F6F8F5",
+  },
 
-loadingText: {
-  marginTop: 10,
-  color: "#66736D",
-},
+  loadingText: {
+    marginTop: 10,
+    color: "#66736D",
+  },
   header: {
     backgroundColor: "#176B4D",
     paddingHorizontal: 20,

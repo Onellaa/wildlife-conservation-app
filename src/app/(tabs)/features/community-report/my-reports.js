@@ -19,7 +19,7 @@ import { Feather } from "@expo/vector-icons";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 import { supabase } from "../../../../../lib/supabase";
-import { useAuth } from "../../../context/AuthContext";
+import { useAuth } from "../../../../context/AuthContext";
 
 const ROUTES = {
   home: "/(tabs)/features/community-report",
