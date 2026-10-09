@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View } from "react-native";
+/*import { StyleSheet, Text, View } from "react-native";
 
 export default function SettingsScreen() {
   return (
@@ -15,3 +15,4 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
 });
+*/
