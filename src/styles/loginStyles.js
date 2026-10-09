@@ -1,4 +1,3 @@
-// frontend/styles/loginStyles.js
 import { StyleSheet } from "react-native";
 
 export const COLORS = {

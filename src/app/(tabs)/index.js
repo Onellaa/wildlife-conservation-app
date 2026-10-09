@@ -1,17 +1,6 @@
-import { StyleSheet, Text, View } from "react-native";
+// src/app/(tabs)/index.jsx
+import HomeDispatcher from "./features/home/dispatcher";
 
-export default function HomeScreen() {
-  return (
-    <View style={styles.container}>
-      <Text>Wildlife Conservation</Text>
-    </View>
-  );
+export default function Index() {
+  return <HomeDispatcher />;
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-});
