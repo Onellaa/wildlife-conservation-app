@@ -32,6 +32,7 @@ import { getActiveAlerts } from "../services/alertService";
 export default function HomeScreen() {
   const router = useRouter();
 
+
   const [stats, setStats] = useState({
     activeAlerts: 0,
     trackedAnimals: 0,
@@ -309,8 +310,26 @@ export default function HomeScreen() {
         <View style={{ height: 25 }} />
       </ScrollView>
     </SafeAreaView>
-  );
-}
+
+  // return (
+  //   <View style={styles.container}>
+  //     <Text style={styles.title}>Wildlife Conservation</Text>
+
+  //     <TouchableOpacity
+  //       style={styles.reportButton}
+  //       onPress={() =>
+  //         router.push("/(tabs)/features/community-report")
+  //       }
+  //     >
+  //       <Text style={styles.reportButtonText}>
+  //         Community Conflict Report
+  //       </Text>
+  //     </TouchableOpacity>
+  //   </View>
+
+   );
+ }
+
 
 const styles = StyleSheet.create({
   container: {
@@ -604,6 +623,26 @@ const styles = StyleSheet.create({
     marginLeft: 10,
     color: "#607067",
     fontSize: 13,
+    padding: 20,
+  },
+
+  title: {
+    fontSize: 24,
+    fontWeight: "700",
+    marginBottom: 30,
+  },
+
+  reportButton: {
+    backgroundColor: "#2e7d32",
+    paddingVertical: 15,
+    paddingHorizontal: 25,
+    borderRadius: 10,
+  },
+
+  reportButtonText: {
+    color: "#fff",
+    fontSize: 16,
     fontWeight: "600",
   },
 });
+
